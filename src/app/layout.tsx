@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="">{children}</div>
       </body>
     </html>
