@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  profileImage      String?
+  email             String    @unique
+  emailVerified     DateTime?
+  hashedPassword    String
+  createdAt         DateTime  @default(now())
+  upadatedAt        DateTime  @updatedAt
+
+  escapeRecords     EscapeRecord[] // user가 작성한 방탈출 기록
+  wishlists         Wishlist[] // user의 하고싶은 방탈출 목록
+  // notifications     Notification[] // user에게 온 알림
+}
+
+model EscapeRecord {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String    @db.ObjectId
+  themeName         String // 방탈출 테마 이름
+  cafeName          String? // 방탈출 카페 이름
+  location          String? // 방탈출카페가 있는 지역
+  showTime          Int? // 방탈출 몇분짜리인지
+  date              DateTime // 방탈출 한 날짜 FIXME: 나중에 날짜들 array 받아야할듯?
+  success           Boolean // 성공 여부
+  duration          Int? // 소요 시간
+  // teamMembers       String[] // 함께한 멤버들
+  members           Int // 함께한 멤버 수
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Wishlist {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String    @db.ObjectId
+  themeName         String // 방탈출 테마 이름
+  cafeName          String? // 방탈출 카페 이름
+  location          String? // 방탈출카페가 있는 지역
+  showTime          Int? // 방탈출 몇분짜리인지
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// TODO: notification model 생성
+

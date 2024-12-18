@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
@@ -10,7 +9,6 @@ import AccountMenu from "./AccountMenu";
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
-  const router = useRouter;
   const [showBackground, setShowBackground] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -55,7 +53,7 @@ const Navbar = () => {
           `}
       >
         {/* logo */}
-        <img onClick={() => {}} src="/logo.png" alt="text-logo" />
+        <img onClick={() => {}} src="/images/logo.png" alt="text-logo" />
 
         {/* navbar items */}
         <div className="lg:flex flex-row ml-8 gap-7 hidden">
@@ -113,7 +111,7 @@ const Navbar = () => {
             "
           >
             <div className="w-8 h-8 lg:w-10 lg:h-10 outline outline-2 outline-main rounded-full p-1 bg-white">
-              <img src="/alien-bold.png" alt="profile" />
+              <img src="/images/alien-bold.png" alt="profile" />
             </div>
             <BsChevronDown
               className={`
