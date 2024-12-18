@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "ESCAPE LOG",
@@ -15,10 +16,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const token = cookieStore.get("next-auth.session-token");
   return (
     <html lang="en">
       <body className="">
-        {/* <Navbar /> */}
+        {token && <Navbar />}
         <div className="">{children}</div>
       </body>
     </html>

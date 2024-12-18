@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
@@ -10,7 +9,6 @@ import AccountMenu from "./AccountMenu";
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
-  const router = useRouter;
   const [showBackground, setShowBackground] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);

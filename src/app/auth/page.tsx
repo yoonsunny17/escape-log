@@ -1,7 +1,9 @@
 "use client";
 
 import Input from "@/components/Input";
-import { SetStateAction, useCallback, useState } from "react";
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useCallback, useState } from "react";
 
 export default function Auth() {
   const [name, setName] = useState("");
@@ -13,6 +15,34 @@ export default function Auth() {
   const toggleVariant = useCallback(() => {
     setVariant((current) => (current === "login" ? "register" : "login"));
   }, []);
+
+  // 로그인
+  const login = useCallback(async () => {
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/", // 로그인 성공 시 메인화면으로
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, password]);
+
+  // 회원가입
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        name,
+        password,
+      });
+
+      login(); // 회원가입 완료 시 바로 로그인
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, name, password, login]);
 
   return (
     <div
@@ -26,7 +56,7 @@ export default function Auth() {
     "
     >
       <div className="w-full h-full">
-        <nav className="px-12 py-5">
+        <nav className="px-4 md:px-16 py-6 h-20 md:h-[88px] flex items-center">
           <img src="/images/logo.png" alt="logo" />
         </nav>
         <div className="flex justify-center">
@@ -82,7 +112,7 @@ export default function Auth() {
 
             {/* login/register button */}
             <button
-              onClick={() => {}}
+              onClick={variant === "login" ? login : register}
               className="
                 bg-primary-600
                 hover:bg-primary-700
