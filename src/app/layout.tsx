@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { cookies } from "next/headers";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "ESCAPE LOG",
   description: "나의 모든 방탈출",
   icons: {
-    icon: "/alien-bold.png",
+    icon: "/images/alien-bold.png",
   },
 };
 
@@ -21,8 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
+        <Toaster />
         {token && <Navbar />}
-        <div className="">{children}</div>
+        <div className="pt-20">{children}</div>
       </body>
     </html>
   );

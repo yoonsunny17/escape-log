@@ -4,6 +4,7 @@ import Input from "@/components/Input";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Auth() {
   const [name, setName] = useState("");
@@ -19,13 +20,20 @@ export default function Auth() {
   // 로그인
   const login = useCallback(async () => {
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/", // 로그인 성공 시 메인화면으로
+        redirect: false,
       });
+
+      if (result?.ok) {
+        window.location.href = "/";
+      } else {
+        toast.error("이메일 또는 비밀번호가 올바르지 않습니다.");
+      }
     } catch (error) {
       console.log(error);
+      toast.error("로그인 중 오류가 발생했습니다.");
     }
   }, [email, password]);
 
@@ -40,7 +48,11 @@ export default function Auth() {
 
       login(); // 회원가입 완료 시 바로 로그인
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error.response?.data) {
+        toast.error(error.response?.data.error);
+      } else {
+        toast.error("회원가입 중 오류가 발생했습니다.");
+      }
     }
   }, [email, name, password, login]);
 
