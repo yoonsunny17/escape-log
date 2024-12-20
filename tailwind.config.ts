@@ -11,18 +11,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main: {
-          DEFAULT: "#219C90",
-        },
-        sub1: {
-          DEFAULT: "#FFF455",
-        },
-        sub2: {
-          DEFAULT: "#FFC700",
-        },
-        sub3: {
-          DEFAULT: "#EE4E4E",
-        },
         primary: {
           DEFAULT: "#5A4AF4",
           50: "#EBE9FE",
@@ -136,6 +124,21 @@ module.exports = {
           750: "rgba(255, 255, 255, 0.75)",
           900: "#FFFFFF",
         },
+        main: {
+          DEFAULT: "#219C90",
+        },
+        sub1: {
+          DEFAULT: "#FFF455",
+        },
+        sub2: {
+          DEFAULT: "#FFC700",
+        },
+        sub3: {
+          DEFAULT: "#EE4E4E",
+        },
+        gold: "#D5A11E",
+        silver: "#A3A3A3",
+        bronze: "#CD7F32",
       },
     },
   },

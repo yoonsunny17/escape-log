@@ -7,7 +7,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-row justify-between px-16 py-12 border-2 border-main rounded-xl lg:w-2/3 w-full">
-      <div className="flex flex-col w-12 items-center gap-1">
+      <div className="flex flex-col w-12 items-center justify-center gap-1">
         <Avatar userId={currentUser?.id} hasBorder isLarge />
         <p className="text-white">{currentUser?.name}</p>
       </div>
