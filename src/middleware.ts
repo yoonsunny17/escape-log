@@ -4,12 +4,15 @@ export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   // 인증 필요한 경로들 (로그인 시 접근 가능)
-  const protectedPaths = ["/"];
+  const protectedPaths = ["/", "/community"];
+
+  // dynamic user routes
+  const isUserPath = path.startsWith("/users/");
 
   // 토큰 확인
   const token = req.cookies.get("next-auth.session-token")?.value;
 
-  if (protectedPaths.includes(path) && !token) {
+  if ((protectedPaths.includes(path) || isUserPath) && !token) {
     return NextResponse.redirect(new URL("/auth", req.url));
   }
 
@@ -18,5 +21,5 @@ export function middleware(req: NextRequest) {
 
 // 미들웨어가 적용될 경로 설정
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", "/community", "/users/:path*"],
 };
