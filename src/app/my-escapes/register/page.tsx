@@ -26,12 +26,14 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    const { name, value, type } = e.target;
+    const { id, value, type } = e.target;
     setData((prev) => ({
       ...prev,
-      [name]:
+      [id]:
         type === "number"
           ? Number(value)
           : type === "checkbox"
@@ -70,7 +72,7 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
     }
   }, [data, mutateEscapes]);
   return (
-    <div className="">
+    <div className="px-10">
       <div className="flex flex-row justify-between py-12 w-full">
         <header className="text-main font-bold text-xl">
           이번엔 어떤 방탈출을 했는가
@@ -99,11 +101,65 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
         </div>
 
         {/* 플레이시간 / 소요시간 */}
-        <div>
-          <Select />
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            id="playTime"
+            type="number"
+            value={data.playTime || ""}
+            onChange={handleChange}
+            label="플레이시간"
+            step="5"
+          />
+          <Input
+            id="duration"
+            type="number"
+            value={data.duration || ""}
+            onChange={handleChange}
+            label="소요시간"
+            step="5"
+          />
         </div>
+
+        {/* 참여인원 / 성공여부 */}
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            id="members"
+            type="number"
+            value={data.members || ""}
+            onChange={handleChange}
+            label="참여인원"
+            step="1"
+          />
+          <select
+            name="success"
+            id="success"
+            className="rounded-md bg-neutral-700 text-white px-6"
+          >
+            <option value="true">성공</option>
+            <option value="false">실패</option>
+          </select>
+        </div>
+
+        {/* 간단 후기 */}
+        <Input
+          id="body"
+          type="text"
+          value={data.body || ""}
+          onChange={handleChange}
+          label="한줄평"
+        />
+
+        {/* // FIXME: image upload 컴포넌트 만들기 */}
+        {/* 방탈출 포스터 이미지 */}
+        <Input
+          id="posterImgUrl"
+          type="file"
+          value={data.posterImgUrl || ""}
+          onChange={handleChange}
+          label="방탈출 포스터"
+        />
+        <Button onClick={onSubmit} label="submit"></Button>
       </div>
-      <Button onClick={onSubmit} label="submit"></Button>
     </div>
   );
 };

@@ -3,20 +3,31 @@ import React from "react";
 interface InputProps {
   id: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value: string | number;
   label: string;
   type?: string;
+  className?: string;
+  step?: string;
 }
 
-const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
+const Input: React.FC<InputProps> = ({
+  id,
+  onChange,
+  value,
+  label,
+  type,
+  className,
+  step,
+}) => {
   return (
     <div className="relative">
       <input
         id={id}
         value={value}
         type={type}
+        step={step}
         onChange={onChange}
-        className="
+        className={`
           block
           rounded-md
           px-6
@@ -30,7 +41,8 @@ const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
           focus:outline-none
           focus:ring-0
           peer
-        "
+          ${className || ""}
+        `}
         placeholder=""
       />
       <label
