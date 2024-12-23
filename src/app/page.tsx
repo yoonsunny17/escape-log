@@ -9,7 +9,7 @@ const Home = () => {
     <div className="px-10 py-4">
       <div className="flex flex-col lg:flex-row w-full gap-8">
         {/* 프로필 */}
-        <Profile />
+        <Profile className="lg:w-2/3" />
         {/* 탈출 메이트 */}
         <Friends />
       </div>

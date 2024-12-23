@@ -5,10 +5,13 @@ import NavbarItem from "./NavbarItem";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
+import { useRouter } from "next/navigation";
 
 const TOP_OFFSET = 66;
 
 const Navbar = () => {
+  const router = useRouter();
+
   const [showBackground, setShowBackground] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -53,14 +56,19 @@ const Navbar = () => {
           `}
       >
         {/* logo */}
-        <img onClick={() => {}} src="/images/logo.png" alt="text-logo" />
+        <img
+          onClick={() => router.push("/")}
+          src="/images/logo.png"
+          alt="text-logo"
+          className="cursor-pointer"
+        />
 
         {/* navbar items */}
         <div className="lg:flex flex-row ml-8 gap-7 hidden">
-          <NavbarItem label="Home" />
-          <NavbarItem label="My Escapes" />
-          <NavbarItem label="Wishlist" />
-          <NavbarItem label="Community" />
+          <NavbarItem label="Home" path="/" />
+          <NavbarItem label="My Escapes" path="/my-escapes" />
+          <NavbarItem label="Wishlist" path="/wishlist" />
+          <NavbarItem label="Community" path="/community" />
         </div>
 
         {/* mobile menu */}
