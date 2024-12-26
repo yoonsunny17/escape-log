@@ -23,7 +23,7 @@ const EscapeItem: React.FC<EscapeItemProps> = ({ userId, themeId, data }) => {
       "
       >
         <Image
-          src={data.posterImgUrl}
+          src={data?.posterImgUrl ?? "/images/alien-bold.png"}
           width={400}
           height={600}
           alt="poster image"

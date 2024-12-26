@@ -4,6 +4,7 @@ import useSWR from "swr";
 const useCurrentUser = () => {
   const { data, error, isLoading, mutate } = useSWR("/api/current", fetcher);
 
+  console.log("current user data는 ???", data);
   return {
     data,
     error,

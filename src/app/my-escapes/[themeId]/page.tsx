@@ -1,5 +1,6 @@
 "use client";
 
+import FavoriteButton from "@/components/FavoriteButton";
 import useEscape from "@/hooks/useEscape";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -11,15 +12,14 @@ const EscapeDetail = () => {
   const { data, isLoading } = useEscape(themeId as string);
 
   if (!data || isLoading) {
-    <div className="text-white">loading...</div>;
+    return <div className="text-white">loading...</div>;
   }
 
-  console.log("escape info: ", data);
   return (
     <div className="px-10 py-4">
       <div className="flex flex-row">
         <Image
-          src={data?.posterImgUrl}
+          src={data?.posterImgUrl ?? "/images/alien-bold.png"}
           alt="poster image"
           width={400}
           height={600}
@@ -36,7 +36,7 @@ const EscapeDetail = () => {
           </p>
           <p className="text-zinc-400">
             탈출 인원:{" "}
-            <span className="font-bold text-white">{data.members}</span>{" "}
+            <span className="font-bold text-white">{data?.members}</span>{" "}
             <span className="mx-2">/</span> 탈출 결과:{" "}
             <span className="font-bold text-white">
               {data?.success ? "성공" : "실패"}
@@ -44,6 +44,9 @@ const EscapeDetail = () => {
           </p>
         </div>
       </div>
+
+      <FavoriteButton themeId={data.id as string} />
+      {/* <FavoriteButton themeId={themeId as string} /> */}
     </div>
   );
 };

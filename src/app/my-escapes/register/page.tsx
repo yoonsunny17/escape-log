@@ -5,12 +5,14 @@ import ImageUpload from "@/components/ImageUpload";
 import Input from "@/components/Input";
 import useEscapes from "@/hooks/useEscapes";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
 interface RegisterEscapeProps {}
 
 const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
+  const router = useRouter();
   const { mutate: mutateEscapes } = useEscapes();
 
   const [data, setData] = useState({
@@ -75,10 +77,11 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
       });
 
       mutateEscapes();
+      router.push("/my-escapes");
     } catch (error) {
       toast.error("저장 중 오류가 발생했습니다");
     }
-  }, [data, mutateEscapes]);
+  }, [data, mutateEscapes, router]);
   return (
     <div className="px-10">
       <div className="flex flex-row justify-between py-12 w-full">
