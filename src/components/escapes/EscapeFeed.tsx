@@ -12,6 +12,7 @@ const EscapeFeed: React.FC<EscapeFeedProps> = ({ userId }) => {
   const router = useRouter();
 
   const { data: escapes = [] } = useEscapes(userId);
+
   return (
     <div>
       <div className="flex flex-row justify-between items-center py-12 w-full">
@@ -29,7 +30,12 @@ const EscapeFeed: React.FC<EscapeFeedProps> = ({ userId }) => {
       {escapes.length !== 0 && (
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
           {escapes.map((escape: Record<string, any>) => (
-            <EscapeItem userId={userId} key={escape.id} data={escape} />
+            <EscapeItem
+              userId={userId}
+              key={escape.id}
+              data={escape}
+              themeId={escape?.id}
+            />
           ))}
         </div>
       )}

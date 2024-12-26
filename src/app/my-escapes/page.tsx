@@ -1,18 +1,18 @@
 "use client";
 
-import Button from "@/components/Button";
+import EscapeFeed from "@/components/escapes/EscapeFeed";
+import Profile from "@/components/user/Profile";
+import useCurrentUser from "@/hooks/useCurrentUser";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const MyEscapes = () => {
-  const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
+
+  console.log("data? ", currentUser);
   return (
-    <div>
-      MyEscapes
-      <Button
-        label="새 방탈출 기록하기"
-        onClick={() => router.push("/my-escapes/register")}
-      />
+    <div className="px-10 py-4">
+      <EscapeFeed userId={currentUser?.id as string} />
     </div>
   );
 };
