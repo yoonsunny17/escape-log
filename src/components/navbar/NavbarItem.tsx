@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import path from "path";
 import React from "react";
 
 interface NavbarItemProps {
@@ -9,7 +8,6 @@ interface NavbarItemProps {
 }
 
 const NavbarItem: React.FC<NavbarItemProps> = ({ label, path }) => {
-  const pathname = usePathname();
   return (
     <Link
       href={path}
@@ -18,7 +16,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ label, path }) => {
           cursor-pointer
           hover:text-sub2
           transition
-          ${pathname === path ? "text-sub3" : ""}
+          active:text-sub3
         `}
       // className="text-white cursor-pointer hover:text-sub2 transition"
     >

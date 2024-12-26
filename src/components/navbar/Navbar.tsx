@@ -66,7 +66,7 @@ const Navbar = () => {
         {/* navbar items */}
         <div className="lg:flex flex-row ml-8 gap-7 hidden">
           <NavbarItem label="Home" path="/" />
-          <NavbarItem label="My Escapes" path="/my-escapes" />
+          <NavbarItem label="My Escapes" path={`/my-escapes`} />
           <NavbarItem label="Wishlist" path="/wishlist" />
           <NavbarItem label="Community" path="/community" />
         </div>

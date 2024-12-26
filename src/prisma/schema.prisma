@@ -22,6 +22,7 @@ model User {
   hashedPassword    String
   createdAt         DateTime  @default(now())
   upadatedAt        DateTime  @updatedAt
+  favoriteIds       String[]  @db.ObjectId
 
   escapeRecords     EscapeRecord[] // user가 작성한 방탈출 기록
   wishlists         Wishlist[] // user의 하고싶은 방탈출 목록

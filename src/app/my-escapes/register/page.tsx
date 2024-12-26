@@ -1,15 +1,18 @@
 "use client";
 
 import Button from "@/components/Button";
+import ImageUpload from "@/components/ImageUpload";
 import Input from "@/components/Input";
 import useEscapes from "@/hooks/useEscapes";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
 interface RegisterEscapeProps {}
 
 const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
+  const router = useRouter();
   const { mutate: mutateEscapes } = useEscapes();
 
   const [data, setData] = useState({
@@ -24,6 +27,13 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
     duration: 0,
     members: 0,
   });
+
+  const handleImage = (image: string) => {
+    setData((prev) => ({
+      ...prev,
+      posterImgUrl: image,
+    }));
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -67,10 +77,11 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
       });
 
       mutateEscapes();
+      router.push("/my-escapes");
     } catch (error) {
       toast.error("저장 중 오류가 발생했습니다");
     }
-  }, [data, mutateEscapes]);
+  }, [data, mutateEscapes, router]);
   return (
     <div className="px-10">
       <div className="flex flex-row justify-between py-12 w-full">
@@ -149,16 +160,13 @@ const RegisterEscape: React.FC<RegisterEscapeProps> = () => {
           label="한줄평"
         />
 
-        {/* // FIXME: image upload 컴포넌트 만들기 */}
         {/* 방탈출 포스터 이미지 */}
-        <Input
-          id="posterImgUrl"
-          type="file"
-          value={data.posterImgUrl || ""}
-          onChange={handleChange}
-          label="방탈출 포스터"
+        <ImageUpload
+          value={data.posterImgUrl}
+          onChange={(image) => handleImage(image)}
+          label="포스터 이미지를 업로드해 주세요."
         />
-        <Button onClick={onSubmit} label="submit"></Button>
+        <Button onClick={onSubmit} label="submit" />
       </div>
     </div>
   );

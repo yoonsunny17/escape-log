@@ -17,7 +17,7 @@ const Friends = () => {
     <div className="flex flex-col justify-between px-16 py-12 border-2 border-main rounded-xl lg:w-1/3 w-full gap-6">
       {/* header */}
       <div className="flex flex-row justify-between">
-        <header className="text-main font-bold text-xl">최다 탈출러</header>
+        <header className="text-main font-bold text-xl">탈출 동료들</header>
         {users.length > 3 && (
           <button
             onClick={() => router.push("/community")}

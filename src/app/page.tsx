@@ -1,10 +1,14 @@
 "use client";
 
-import UltimateThemes from "@/components/UltimateThemes";
+import EscapeFeed from "@/components/escapes/EscapeFeed";
 import Friends from "@/components/user/Friends";
 import Profile from "@/components/user/Profile";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useFavorites from "@/hooks/useFavorites";
 
 const Home = () => {
+  const { data: currentUser } = useCurrentUser();
+  const { data: favorites = [] } = useFavorites(currentUser?.id as string);
   return (
     <div className="px-10 py-4">
       <div className="flex flex-col lg:flex-row w-full gap-8">
@@ -15,7 +19,7 @@ const Home = () => {
       </div>
       <div>
         {/* 인생테마 */}
-        <UltimateThemes />
+        <EscapeFeed title="인생 테마" data={favorites} />
       </div>
     </div>
   );
